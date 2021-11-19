@@ -9,9 +9,9 @@ def retagAndPush(String imageName, String currentTag, String newTag)
 }
 
 String BRANCH = "${env.BRANCH_NAME}"
-String IMAGE_NAME = "mijnams/wmoned"
+String IMAGE_NAME = "mijnams/mijn_subsidies"
 String IMAGE_TAG = "${IMAGE_NAME}:${env.BUILD_NUMBER}"
-String CMDB_ID = "app_mijn-wmoned"
+String CMDB_ID = "app_mijn-subsidies"
 
 node {
     stage("Checkout") {
@@ -30,15 +30,15 @@ node {
 if (BRANCH != "test-acc") {
     node {
         stage("Test") {
-            docker.withRegistry(DOCKER_REGISTRY_HOST, "docker_registry_auth") {
-                docker.image(IMAGE_TAG).pull()
-                sh "docker run --rm ${IMAGE_TAG} /app/test.sh"
+            docker.withRegistry("${DOCKER_REGISTRY_HOST}", "docker_registry_auth") {
+                docker.build("${IMAGE_TAG}-test", "--target=base-app .")
+                sh "docker run --rm ${IMAGE_TAG}-test /app/test.sh"
             }
         }
     }
 }
 
-if (BRANCH == "test-acc" || BRANCH == "master") {
+if (BRANCH == "test-acc" || BRANCH == "main") {
     node {
         stage("Push acceptance image") {
             docker.withRegistry(DOCKER_REGISTRY_HOST, "docker_registry_auth") {
@@ -60,7 +60,7 @@ if (BRANCH == "test-acc" || BRANCH == "master") {
     }
 }
 
-if (BRANCH == "main") {
+if (BRANCH == "production-release") {
     stage("Waiting for approval") {
         input "Deploy to Production?"
     }
