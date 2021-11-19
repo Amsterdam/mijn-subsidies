@@ -4,7 +4,6 @@ Flask-Testing
 openapi-core
 
 requests
-dpath
 
 # testing tools
 flake8
