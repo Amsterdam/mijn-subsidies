@@ -4,7 +4,7 @@ info:
   description: Dit is het koppelstuk tussen Mijn Amsterdam en XXX
   version: 0.0.1
 paths:
-  /api/subsidies/all:
+  /api/subsidies/info:
     parameters:
       - name: x-saml-attribute-token1
         in: header
@@ -23,7 +23,7 @@ paths:
                 type: object
                 properties:
                   content:
-                    $ref: '#/components/schemas/Subsidies'
+                    $ref: '#/components/schemas/UserInfo'
                   status:
                     type: string
                     enum:
@@ -48,20 +48,33 @@ paths:
                   - 'OK'
 components:
   schemas:
-    Subsidies:
-      type: array
-      items:
-        $ref: '#/components/schemas/Subsidie'
-    Subsidie:
+    UserInfo:
+      type: object
+      properties:
+        isKnown:
+          type: boolean
+        notifications:
+          type: array
+          items:
+            $ref: "#/components/schemas/MyNotification"
+    MyNotification:
       type: object
       properties:
         title:
           type: string
+        description:
+          type: string
+        datePublished:
+          $ref: "#/components/schemas/DateTime"
+          nullable: false
     Date:
       type: string
       format: date
       example: '2020-06-16'
-      nullable: true
+    DateTime:
+      type: string
+      format: date-time
+      example: '2020-06-16T:13:40:00'
     ErrorResponse:
       type: object
       properties:
