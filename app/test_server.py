@@ -34,7 +34,7 @@ class ApiTests(FlaskServerTMATestCase):
     @mock.patch(
         "app.xxx_service.get_all",
     )
-    def test_get_all(self, get_all_mock):
+    def test_get_all_none(self, get_all_mock):
 
         get_all_mock.return_value = None
 
@@ -48,3 +48,28 @@ class ApiTests(FlaskServerTMATestCase):
         self.assertEqual(data["content"], expected_content)
 
         get_all_mock.assert_called_with(self.TEST_BSN)
+
+    @mock.patch(
+        "app.xxx_service.get_all",
+    )
+    def test_get_all_some(self, get_all_mock):
+
+        get_all_mock.return_value = {"foo": [], "bar": True}
+
+        response = self.get_secure("/subsidies/summary")
+        self.assertEqual(response.status_code, 200)
+
+        data = response.get_json()
+        expected_content = {"bar": True, "foo": []}
+
+        self.assertEqual(data["status"], "OK")
+        self.assertEqual(data["content"], expected_content)
+
+        get_all_mock.assert_called_with(self.TEST_BSN)
+
+    def test_error_handler(self):
+        response = self.get_secure("/subsidies/hack")
+        self.assertEqual(response.status_code, 500)
+        self.assertEqual(
+            response.json, {"message": "Server error occurred", "status": "ERROR"}
+        )

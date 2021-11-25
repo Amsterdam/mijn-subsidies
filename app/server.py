@@ -22,7 +22,7 @@ from app.helpers import (
 app = Flask(__name__)
 app.json_encoder = CustomJSONEncoder
 
-if SENTRY_DSN:
+if SENTRY_DSN:  # pragma: no cover
     sentry_sdk.init(
         dsn=SENTRY_DSN, integrations=[FlaskIntegration()], with_locals=False
     )
@@ -33,9 +33,6 @@ if SENTRY_DSN:
 def get_all():
     user = get_tma_user()
     content = xxx_service.get_all(user["id"])
-
-    if content is None:
-        return success_response_json(None)
 
     return success_response_json(content)
 
@@ -54,12 +51,12 @@ def handle_error(error):
     msg_request_http_error = "Request error occurred"
     msg_server_error = "Server error occurred"
 
-    if not app.config["TESTING"]:
+    if not app.config["TESTING"]:  # pragma: no cover
         logging.exception(
             error, extra={"error_message_original": error_message_original}
         )
 
-    if IS_DEV:
+    if IS_DEV:  # pragma: no cover
         msg_tma_exception = error_message_original
         msg_request_http_error = error_message_original
         msg_server_error = error_message_original
@@ -75,5 +72,5 @@ def handle_error(error):
     return error_response_json(msg_server_error, 500)
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     app.run()
