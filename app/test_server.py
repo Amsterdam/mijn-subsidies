@@ -38,10 +38,10 @@ class ApiTests(FlaskServerTMATestCase):
 
         get_all_mock.return_value = None
 
-        response = self.get_secure("/subsidies/all")
+        response = self.get_secure("/subsidies/summary")
         self.assertEqual(response.status_code, 200)
-        data = response.get_json()
 
+        data = response.get_json()
         expected_content = None
 
         self.assertEqual(data["status"], "OK")

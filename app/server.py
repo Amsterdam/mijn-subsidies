@@ -28,7 +28,7 @@ if SENTRY_DSN:
     )
 
 
-@app.route("/subsidies/info", methods=["GET"])
+@app.route("/subsidies/summary", methods=["GET"])
 @verify_tma_user
 def get_all():
     user = get_tma_user()

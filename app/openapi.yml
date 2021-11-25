@@ -4,7 +4,7 @@ info:
   description: Dit is het koppelstuk tussen Mijn Amsterdam en XXX
   version: 0.0.1
 paths:
-  /api/subsidies/info:
+  /api/subsidies/summary:
     parameters:
       - name: x-saml-attribute-token1
         in: header
