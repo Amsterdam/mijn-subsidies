@@ -105,7 +105,7 @@ def create_mock_dummy(content):
 
 
 class RequestHelpersTest(TestCase):
-    @patch("app.helpers.os.open")
+    @patch("builtins.open")
     def test_read_spec(self, open_mock):
         open_mock.return_value = StringIO(test_spec_yml)
 
