@@ -1,4 +1,4 @@
-from app.config import XXX_API_URL
+from app.config import SISA_API_URL
 import requests
 
 
@@ -12,7 +12,7 @@ def get_all(bsn):
 
     bsn_encrypted = f"xxx-{bsn}-xxx"
 
-    url = f"{XXX_API_URL}/get/all?bsn={bsn_encrypted}"
+    url = f"{SISA_API_URL}/get/all?bsn={bsn_encrypted}"
 
     response = requests.get(url)
     response_json = response.json()

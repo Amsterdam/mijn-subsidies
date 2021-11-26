@@ -32,13 +32,13 @@ class ApiTests(FlaskServerTMATestCase):
         self.assertEqual(data["content"], "OK")
 
     @mock.patch(
-        "app.xxx_service.get_all",
+        "app.sisa_service.get_all",
     )
     def test_get_all_none(self, get_all_mock):
 
         get_all_mock.return_value = None
 
-        response = self.get_secure("/subsidies/summary")
+        response = self.get_secure("/subsidie/summary")
         self.assertEqual(response.status_code, 200)
 
         data = response.get_json()
@@ -50,13 +50,13 @@ class ApiTests(FlaskServerTMATestCase):
         get_all_mock.assert_called_with(self.TEST_BSN)
 
     @mock.patch(
-        "app.xxx_service.get_all",
+        "app.sisa_service.get_all",
     )
     def test_get_all_some(self, get_all_mock):
 
         get_all_mock.return_value = {"foo": [], "bar": True}
 
-        response = self.get_secure("/subsidies/summary")
+        response = self.get_secure("/subsidie/summary")
         self.assertEqual(response.status_code, 200)
 
         data = response.get_json()

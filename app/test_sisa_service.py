@@ -1,11 +1,11 @@
 import json
 from unittest import TestCase
 from unittest.mock import patch
-from app.xxx_service import get_all, transform_notifications
+from app.sisa_service import get_all, transform_notifications
 from app.server import app
 
 
-class XXXApiMock:
+class SISAApiMock:
     status_code = 200
     response_json = None
 
@@ -26,10 +26,10 @@ class ServiceTests(TestCase):
     def setUp(self):
         self.maxDiff = None
 
-    @patch("app.xxx_service.requests.get")
+    @patch("app.sisa_service.requests.get")
     def test_get_all(self, get_mock):
 
-        get_mock.return_value = XXXApiMock({"dingen": [], "iemand": True})
+        get_mock.return_value = SISAApiMock({"dingen": [], "iemand": True})
 
         with app.app_context():
             result_all = get_all(self.TEST_BSN)

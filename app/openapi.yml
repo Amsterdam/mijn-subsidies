@@ -1,10 +1,10 @@
 openapi: 3.0.3
 info:
-  title: XXX koppel api
-  description: Dit is het koppelstuk tussen Mijn Amsterdam en XXX
+  title: SISA koppel api
+  description: Dit is het koppelstuk tussen Mijn Amsterdam en SISA
   version: 0.0.1
 paths:
-  /api/subsidies/summary:
+  /api/subsidie/summary:
     parameters:
       - name: x-saml-attribute-token1
         in: header

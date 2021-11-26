@@ -5,7 +5,7 @@ from flask import Flask
 from requests.exceptions import HTTPError
 from sentry_sdk.integrations.flask import FlaskIntegration
 
-from app import xxx_service
+from app import sisa_service
 from app.config import (
     IS_DEV,
     SENTRY_DSN,
@@ -28,11 +28,11 @@ if SENTRY_DSN:  # pragma: no cover
     )
 
 
-@app.route("/subsidies/summary", methods=["GET"])
+@app.route("/subsidie/summary", methods=["GET"])
 @verify_tma_user
 def get_all():
     user = get_tma_user()
-    content = xxx_service.get_all(user["id"])
+    content = sisa_service.get_all(user["id"])
 
     return success_response_json(content)
 

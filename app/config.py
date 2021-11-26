@@ -26,10 +26,10 @@ IS_DEV = os.getenv("FLASK_ENV") == "development" and not IS_AP
 TMAException = (SamlVerificationException, InvalidBSNException, SamlExpiredException)
 ENABLE_OPENAPI_VALIDATION = os.getenv("ENABLE_OPENAPI_VALIDATION", "1")
 
-# XXX specific config
-XXX_API_REQUEST_TIMEOUT_SECONDS = 30
-XXX_API_TOKEN = os.getenv("XXX_API_TOKEN")
-XXX_API_URL = os.getenv("XXX_API_URL")
+# SISA specific config
+SISA_API_REQUEST_TIMEOUT_SECONDS = 30
+SISA_API_TOKEN = os.getenv("SISA_API_TOKEN")
+SISA_API_URL = os.getenv("SISA_API_URL")
 
 # Set-up logging
 LOG_LEVEL = os.getenv("LOG_LEVEL", "ERROR").upper()
