@@ -32,7 +32,7 @@ def get_tma_certificate():
         tma_cert_location = os.getenv("TMA_CERTIFICATE")
 
         if tma_cert_location:
-            with os.open(tma_cert_location) as f:
+            with os.open(tma_cert_location, "r") as f:
                 tma_certificate = g.tma_certificate = f.read()
 
     return tma_certificate
