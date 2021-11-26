@@ -32,7 +32,7 @@ def get_tma_certificate():
         tma_cert_location = os.getenv("TMA_CERTIFICATE")
 
         if tma_cert_location:
-            with os.open(tma_cert_location, "r") as f:
+            with open(tma_cert_location, "r") as f:
                 tma_certificate = g.tma_certificate = f.read()
 
     return tma_certificate
@@ -92,7 +92,7 @@ def verify_tma_user(function):
 def get_openapi_spec():
     global openapi_spec
     if not openapi_spec:
-        with os.open(os.path.join(BASE_PATH, "openapi.yml"), "r") as spec_file:
+        with open(os.path.join(BASE_PATH, "openapi.yml"), "r") as spec_file:
             spec_dict = load(spec_file, Loader=yaml.Loader)
 
         openapi_spec = create_spec(spec_dict)
