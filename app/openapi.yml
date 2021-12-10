@@ -3,8 +3,19 @@ info:
   title: SISA koppel api
   description: Dit is het koppelstuk tussen Mijn Amsterdam en SISA
   version: 0.0.1
+  contact:
+    email: datapunt@amsterdam.nl
+    name: Datapunt Support
+    url: https://data.amsterdam.nl/
+servers:
+  - url: http://localhost
+    description: Development server
+  - url: https://mijn.acc.amsterdam.nl
+    description: Acceptance server
+  - url: https://mijn.amsterdam.nl
+    description: Production server
 paths:
-  /api/subsidie/summary:
+  /subsidie/summary:
     parameters:
       - name: x-saml-attribute-token1
         in: header
@@ -15,7 +26,7 @@ paths:
     get:
       summary: Informatie m.b.t. subsidies op basis van BSN
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
@@ -23,29 +34,29 @@ paths:
                 type: object
                 properties:
                   content:
-                    $ref: '#/components/schemas/UserInfo'
+                    $ref: "#/components/schemas/UserInfo"
                   status:
                     type: string
                     enum:
-                      - 'OK'
+                      - "OK"
         default:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: "#/components/schemas/ErrorResponse"
   /status/health:
     get:
       summary: returns "OK"
       responses:
-        '200':
+        "200":
           description: Returns "OK"
           content:
             application/json:
               schema:
                 type: string
                 enum:
-                  - 'OK'
+                  - "OK"
 components:
   schemas:
     UserInfo:
@@ -70,17 +81,17 @@ components:
     Date:
       type: string
       format: date
-      example: '2020-06-16'
+      example: "2020-06-16"
     DateTime:
       type: string
       format: date-time
-      example: '2020-06-16T:13:40:00'
+      example: "2020-06-16T:13:40:00"
     ErrorResponse:
       type: object
       properties:
         status:
           type: string
           enum:
-            - 'ERROR'
+            - "ERROR"
         message:
           type: string

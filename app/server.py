@@ -16,6 +16,7 @@ from app.helpers import (
     error_response_json,
     get_tma_user,
     success_response_json,
+    validate_openapi,
     verify_tma_user,
 )
 
@@ -30,6 +31,7 @@ if SENTRY_DSN:  # pragma: no cover
 
 @app.route("/subsidie/summary", methods=["GET"])
 @verify_tma_user
+@validate_openapi
 def get_all():
     user = get_tma_user()
     content = sisa_service.get_all(user["id"])
@@ -51,10 +53,7 @@ def handle_error(error):
     msg_request_http_error = "Request error occurred"
     msg_server_error = "Server error occurred"
 
-    if not app.config["TESTING"]:  # pragma: no cover
-        logging.exception(
-            error, extra={"error_message_original": error_message_original}
-        )
+    logging.exception(error, extra={"error_message_original": error_message_original})
 
     if IS_DEV:  # pragma: no cover
         msg_tma_exception = error_message_original
