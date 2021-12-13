@@ -27,7 +27,15 @@ paths:
                 type: object
                 properties:
                   content:
-                    $ref: "#/components/schemas/UserInfo"
+                    nullable: true
+                    type: object
+                    properties:
+                      isKnown:
+                        type: boolean
+                      notifications:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/MyNotification"
                   status:
                     type: string
                     enum:
@@ -52,15 +60,6 @@ paths:
                   - "OK"
 components:
   schemas:
-    UserInfo:
-      type: object
-      properties:
-        isKnown:
-          type: boolean
-        notifications:
-          type: array
-          items:
-            $ref: "#/components/schemas/MyNotification"
     MyNotification:
       type: object
       properties:

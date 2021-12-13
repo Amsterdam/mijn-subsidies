@@ -1,5 +1,6 @@
 from io import StringIO, TextIOWrapper
 from unittest import TestCase
+from unittest import mock
 
 from unittest.mock import MagicMock, patch
 
@@ -105,16 +106,6 @@ def create_mock_dummy(content):
 
 
 class RequestHelpersTest(TestCase):
-    @patch("builtins.open")
-    def test_read_spec(self, open_mock):
-        open_mock.return_value = StringIO(test_spec_yml)
-
-        spec = get_openapi_spec()
-
-        open_mock.assert_called_once()
-
-        self.assertEqual(spec.getkey("paths"), test_spec_openapi_paths)
-
     @patch("app.helpers.get_openapi_spec")
     def test_validate_ok(self, open_api_spec_mock):
 
