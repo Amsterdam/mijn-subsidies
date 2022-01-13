@@ -1,8 +1,13 @@
+import base64
 import os
+import secrets
+import string
 from datetime import date, datetime
 from functools import wraps
 
 import yaml
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import pad, unpad
 from flask import g, request
 from flask.helpers import make_response
 from openapi_core import create_spec
@@ -19,7 +24,12 @@ from tma_saml.tma_saml import get_user_type
 from tma_saml.user_type import UserType
 from yaml import load
 
-from app.config import BASE_PATH, ENABLE_OPENAPI_VALIDATION
+from app.config import (
+    BASE_PATH,
+    ENABLE_OPENAPI_VALIDATION,
+    SISA_API_ENDPOINT,
+    SISA_ENCRYPTION_KEY,
+)
 
 openapi_spec = None
 
@@ -143,3 +153,27 @@ def to_date(date_input):
         return datetime.strptime(date_input, "%Y-%m-%dT%H:%M:%S").date()
 
     return datetime.strptime(date_input, "%Y-%m-%d").date()
+
+
+def encrypt(plaintext, secret_key):
+    # Generate random ascii IV
+    iv = bytes(
+        "".join(
+            secrets.choice(string.ascii_uppercase + string.ascii_lowercase)
+            for i in range(AES.block_size)
+        ),
+        "utf-8",
+    )
+
+    encryption_key = bytes(secret_key, "utf-8")
+    cipher = AES.new(key=encryption_key, mode=AES.MODE_CBC, IV=iv)
+    padded_plaintext = pad(plaintext.encode("utf-8"), AES.block_size)
+
+    return (cipher.encrypt(padded_plaintext), iv)
+
+
+def decrypt(encrypted, iv, secret_key):
+    encryption_key = bytes(secret_key, "utf-8")
+
+    cipher = AES.new(encryption_key, AES.MODE_CBC, iv)
+    return unpad(cipher.decrypt(encrypted), AES.block_size).decode("utf-8")

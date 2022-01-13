@@ -1,4 +1,5 @@
 import json
+
 from unittest import TestCase
 from unittest.mock import patch
 from app.sisa_service import get_all, transform_notifications
@@ -26,6 +27,8 @@ class ServiceTests(TestCase):
     def setUp(self):
         self.maxDiff = None
 
+    @patch("app.sisa_service.SISA_ENCRYPTION_KEY", "abcdefghijklmnop")
+    @patch("app.sisa_service.SISA_API_ENDPOINT", "http://nothing")
     @patch("app.sisa_service.requests.get")
     def test_get_all(self, get_mock):
 
