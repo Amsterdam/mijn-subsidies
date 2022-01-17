@@ -15,17 +15,19 @@ from app.config import (
     SISA_ENCRYPTION_KEY,
 )
 from app.helpers import encrypt
+import jwt
 
 
 def send_request(url, headers=None):
 
-    auth = HTTPBasicAuth(SISA_CLIENT_ID, SISA_CLIENT_SECRET)
+    token = jwt.encode({"iss": SISA_CLIENT_ID}, SISA_CLIENT_SECRET, algorithm="HS256")
+
+    headers = {"Authorization": f"Bearer {token}"}
 
     res = requests.get(
         url,
         headers=headers,
         timeout=SISA_API_REQUEST_TIMEOUT_SECONDS,
-        auth=auth,
         verify=False,
     )
 

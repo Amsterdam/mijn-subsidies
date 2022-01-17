@@ -4,6 +4,7 @@ Flask-Testing
 openapi-core
 pycryptodome
 requests
+pyjwt
 
 # testing tools
 flake8
