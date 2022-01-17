@@ -3,7 +3,6 @@ FROM amsterdam/python
 LABEL maintainer=datapunt@amsterdam.nl
 
 ENV PYTHONUNBUFFERED 1
-ENV REQUESTS_CA_BUNDLE /etc/ssl/certs/ca-certificates.crt
 
 RUN apt-get update && apt-get install -y
 RUN pip install --upgrade pip
@@ -18,7 +17,8 @@ COPY uwsgi.ini .
 
 COPY /test.sh /app
 COPY .flake8 .
-COPY *.pem /usr/local/share/ca-certificates/extras/
+
+COPY /cert/*.crt /usr/local/share/ca-certificates/extras/
 RUN chmod -R 644 /usr/local/share/ca-certificates/extras/ \
   && update-ca-certificates
 
