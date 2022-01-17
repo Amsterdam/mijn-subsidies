@@ -1,4 +1,7 @@
 import base64
+import json
+import logging
+from textwrap import indent
 
 import requests
 from requests import Session
@@ -49,6 +52,8 @@ def get_all(bsn):
     response_json = response.json()
 
     payload = response_json
+
+    logging.debug(json.dumps(response_json, indent=4))
 
     if response_json.get("iemand"):
         is_known = response_json["iemand"]
