@@ -22,10 +22,16 @@ def send_request(url, headers=None):
     auth = HTTPBasicAuth(SISA_CLIENT_ID, SISA_CLIENT_SECRET)
 
     res = requests.get(
-        url, headers=headers, timeout=SISA_API_REQUEST_TIMEOUT_SECONDS, auth=auth
+        url,
+        headers=headers,
+        timeout=SISA_API_REQUEST_TIMEOUT_SECONDS,
+        auth=auth,
+        verify=False,
     )
 
-    # Error handling
+    res.raise_for_status()
+
+    # TODO: Implement Error handling?
 
     return res
 
