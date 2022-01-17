@@ -19,11 +19,10 @@ from app.helpers import encrypt
 
 def send_request(url, headers=None):
 
-    session = Session()
-    session.auth = HTTPBasicAuth(SISA_CLIENT_ID, SISA_CLIENT_SECRET)
+    auth = HTTPBasicAuth(SISA_CLIENT_ID, SISA_CLIENT_SECRET)
 
     res = requests.get(
-        url, headers=headers, timeout=SISA_API_REQUEST_TIMEOUT_SECONDS, session=session
+        url, headers=headers, timeout=SISA_API_REQUEST_TIMEOUT_SECONDS, auth=auth
     )
 
     # Error handling
