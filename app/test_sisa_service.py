@@ -20,6 +20,9 @@ class SISAApiMock:
     def json(self):
         return self.response_json
 
+    def raise_for_status():
+        return
+
 
 class ServiceTests(TestCase):
     TEST_BSN = "111222333"
