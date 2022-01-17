@@ -20,7 +20,7 @@ class SISAApiMock:
     def json(self):
         return self.response_json
 
-    def raise_for_status():
+    def raise_for_status(*args, **kwargs):
         return
 
 
