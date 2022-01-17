@@ -32,6 +32,8 @@ class ServiceTests(TestCase):
 
     @patch("app.sisa_service.SISA_ENCRYPTION_KEY", "abcdefghijklmnop")
     @patch("app.sisa_service.SISA_API_ENDPOINT", "http://nothing")
+    @patch("app.sisa_service.SISA_CLIENT_ID", "_some_id_")
+    @patch("app.sisa_service.SISA_CLIENT_SECRET", "_some_secret_")
     @patch("app.sisa_service.requests.get")
     def test_get_all(self, get_mock):
 
