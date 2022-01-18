@@ -3,9 +3,7 @@ import base64
 from app.helpers import decrypt, encrypt
 
 identifier = "123123123"
-secret_key = "0z#0aa!@bU0izY&s"
-
-# payload = "p84zZrV+WKxuLW04Y/10RYqq0avLEtRMo0mD3UKjNLU="
+secret_key = ""
 
 # Generate (bytes)encrypted_payload and (bytes)iv
 (encrypted_string, iv) = encrypt(identifier, secret_key)
