@@ -1,0 +1,17 @@
+{
+  "content": {
+    "isKnown": true,
+    "notifications": [
+      {
+        "title": "Aanvraag Test aanvraag 1",
+        "description": "Er staat een informatieverzoek voor u klaar.",
+        "datePublished": "2022-01-18T14:59:12.485Z",
+        "link": {
+          "title": "Voer taak uit",
+          "to": "https://sisa-loket.easyfunders.info/aanvraag/xxxxxxxx"
+        }
+      }
+    ]
+  },
+  "status": "OK"
+}
