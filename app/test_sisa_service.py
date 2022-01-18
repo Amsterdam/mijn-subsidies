@@ -37,7 +37,7 @@ class ServiceTests(TestCase):
     @patch("app.sisa_service.requests.get")
     def test_get_all(self, get_mock):
 
-        get_mock.return_value = SISAApiMock({"dingen": [], "iemand": True})
+        get_mock.return_value = SISAApiMock({"notifications": [], "isKnown": True})
 
         with app.app_context():
             result_all = get_all(self.TEST_BSN)
