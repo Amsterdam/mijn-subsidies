@@ -2,7 +2,7 @@ import json
 
 from unittest import TestCase
 from unittest.mock import patch
-from app.sisa_service import get_all, transform_notifications
+from app.sisa_service import get_all
 from app.server import app
 
 
@@ -45,9 +45,3 @@ class ServiceTests(TestCase):
         get_mock.assert_called_once()
 
         self.assertEqual(result_all, {"notifications": [], "isKnown": True})
-
-    def test_transform(self):
-        source = []
-        result = []
-
-        self.assertEqual(transform_notifications(source), result)
