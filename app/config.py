@@ -32,7 +32,7 @@ SISA_API_ENDPOINT = os.getenv("SISA_API_ENDPOINT")
 SISA_ENCRYPTION_KEY = os.getenv("SISA_ENCRYPTION_KEY")
 SISA_CLIENT_SECRET = os.getenv("SISA_CLIENT_SECRET")
 SISA_CLIENT_ID = os.getenv("SISA_CLIENT_ID")
-SISA_CERT_FILE = BASE_PATH + "/../cert/Private_G1_chain_acc_temp.pem"
+SISA_CERT_FILE = BASE_PATH + "/../cert/Private_G1_chain.pem"
 
 # Set-up logging
 LOG_LEVEL = os.getenv("LOG_LEVEL", "ERROR").upper()
