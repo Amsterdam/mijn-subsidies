@@ -38,7 +38,7 @@ class ApiTests(FlaskServerTMATestCase):
 
         get_all_mock.return_value = None
 
-        response = self.get_secure("/subsidie/summary")
+        response = self.get_secure("/subsidies/summary")
         self.assertEqual(response.status_code, 200)
 
         data = response.get_json()
@@ -56,7 +56,7 @@ class ApiTests(FlaskServerTMATestCase):
 
         get_all_mock.return_value = {"foo": [], "bar": True}
 
-        response = self.get_secure("/subsidie/summary")
+        response = self.get_secure("/subsidies/summary")
         self.assertEqual(response.status_code, 200)
 
         data = response.get_json()
