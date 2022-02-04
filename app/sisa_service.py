@@ -52,4 +52,4 @@ def get_all(bsn):
     response = send_request(url)
     response_json = response.json()
 
-    return response_json
+    return response_json["content"]
