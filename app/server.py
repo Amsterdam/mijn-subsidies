@@ -29,7 +29,7 @@ if SENTRY_DSN:  # pragma: no cover
     )
 
 
-@app.route("/subsidie/summary", methods=["GET"])
+@app.route("/subsidies/summary", methods=["GET"])
 @verify_tma_user
 @validate_openapi
 def get_all():

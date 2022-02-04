@@ -8,7 +8,7 @@ info:
     name: Datapunt Support
     url: https://data.amsterdam.nl/
 paths:
-  /subsidie/summary:
+  /subsidies/summary:
     parameters:
       - name: x-saml-attribute-token1
         in: header
