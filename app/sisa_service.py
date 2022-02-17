@@ -45,9 +45,9 @@ def get_request_url(encrypted_payload, iv):
     return SISA_API_ENDPOINT + payload
 
 
-def get_all(bsn):
-    (bsn_encrypted, iv) = encrypt(bsn, SISA_ENCRYPTION_KEY)
-    url = get_request_url(bsn_encrypted, iv)
+def get_all(user_id):
+    (user_id_encrypted, iv) = encrypt(user_id, SISA_ENCRYPTION_KEY)
+    url = get_request_url(user_id_encrypted, iv)
 
     response = send_request(url)
     response_json = response.json()
