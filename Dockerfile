@@ -8,19 +8,19 @@ RUN apt-get update && apt-get install -y
 RUN pip install --upgrade pip
 RUN pip install uwsgi
 
-WORKDIR /app
+WORKDIR /api
 
-COPY app ./app
-COPY scripts ./scripts
-COPY requirements.txt .
-COPY uwsgi.ini .
+COPY app /api/app
+COPY scripts /api/scripts
+COPY requirements.txt /api
+COPY uwsgi.ini /api
 
-COPY /test.sh /app
-COPY .flake8 .
+COPY /test.sh /api
+COPY .flake8 /api
 
-COPY /cert /app/cert
+COPY /cert /api/cert
 
-RUN pip install --no-cache-dir -r /app/requirements.txt
+RUN pip install --no-cache-dir -r /api/requirements.txt
 
 USER datapunt
-CMD uwsgi --ini /app/uwsgi.ini
+CMD uwsgi --ini /api/uwsgi.ini
