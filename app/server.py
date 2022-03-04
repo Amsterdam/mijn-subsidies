@@ -34,7 +34,7 @@ if SENTRY_DSN:  # pragma: no cover
 @validate_openapi
 def get_all():
     user = get_tma_user()
-    content = sisa_service.get_all(user["id"])
+    content = sisa_service.get_all(user["id"], user["type"])
 
     return success_response_json(content)
 

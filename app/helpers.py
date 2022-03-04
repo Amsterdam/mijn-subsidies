@@ -1,4 +1,3 @@
-import base64
 import os
 import secrets
 import string
@@ -27,8 +26,6 @@ from yaml import load
 from app.config import (
     BASE_PATH,
     ENABLE_OPENAPI_VALIDATION,
-    SISA_API_ENDPOINT,
-    SISA_ENCRYPTION_KEY,
 )
 
 openapi_spec = None
