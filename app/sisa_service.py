@@ -3,6 +3,7 @@ from datetime import datetime
 
 import jwt
 import requests
+from app.auth import PROFILE_TYPE_COMMERCIAL, PROFILE_TYPE_PRIVATE
 
 from app.config import (
     SISA_API_BSN_ENDPOINT,
@@ -14,7 +15,6 @@ from app.config import (
     SISA_ENCRYPTION_KEY,
 )
 from app.helpers import encrypt
-from tma_saml.user_type import UserType
 
 
 def send_request(url, headers=None):
@@ -41,10 +41,10 @@ def send_request(url, headers=None):
     return res
 
 
-def get_request_url(user_type, encrypted_payload, iv):
+def get_request_url(profile_type, encrypted_payload, iv):
     payload = base64.urlsafe_b64encode(iv + encrypted_payload).decode("ASCII")
 
-    if user_type == UserType.BEDRIJF:
+    if profile_type == PROFILE_TYPE_COMMERCIAL:
         endpoint = SISA_API_KVK_ENDPOINT
     else:
         endpoint = SISA_API_BSN_ENDPOINT
@@ -52,9 +52,9 @@ def get_request_url(user_type, encrypted_payload, iv):
     return endpoint + payload
 
 
-def get_all(user_id, user_type=UserType.BURGER):
+def get_all(user_id, profile_type=PROFILE_TYPE_PRIVATE):
     (user_id_encrypted, iv) = encrypt(user_id, SISA_ENCRYPTION_KEY)
-    url = get_request_url(user_type, user_id_encrypted, iv)
+    url = get_request_url(profile_type, user_id_encrypted, iv)
 
     response = send_request(url)
     response_json = response.json()

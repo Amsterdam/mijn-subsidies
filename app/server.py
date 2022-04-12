@@ -1,24 +1,23 @@
 import logging
-
 import sentry_sdk
+
 from flask import Flask
+
 from requests.exceptions import HTTPError
 from sentry_sdk.integrations.flask import FlaskIntegration
 
-from app import sisa_service
+from app import auth, sisa_service
 from app.config import (
     IS_DEV,
     SENTRY_DSN,
     CustomJSONEncoder,
-    TMAException,
 )
 from app.helpers import (
     error_response_json,
-    get_tma_user,
     success_response_json,
     validate_openapi,
-    verify_tma_user,
 )
+
 
 app = Flask(__name__)
 app.json_encoder = CustomJSONEncoder
@@ -30,10 +29,10 @@ if SENTRY_DSN:  # pragma: no cover
 
 
 @app.route("/subsidies/summary", methods=["GET"])
-@verify_tma_user
+@auth.login_required
 @validate_openapi
 def get_all():
-    user = get_tma_user()
+    user = auth.get_current_user()
     content = sisa_service.get_all(user["id"], user["type"])
 
     return success_response_json(content)
@@ -47,16 +46,16 @@ def health_check():
 @app.errorhandler(Exception)
 def handle_error(error):
 
-    error_message_original = str(error)
+    error_message_original = f"{type(error)}:{str(error)}"
 
-    msg_tma_exception = "TMA error occurred"
+    msg_auth_exception = "Auth error occurred"
     msg_request_http_error = "Request error occurred"
     msg_server_error = "Server error occurred"
 
     logging.exception(error, extra={"error_message_original": error_message_original})
 
     if IS_DEV:  # pragma: no cover
-        msg_tma_exception = error_message_original
+        msg_auth_exception = error_message_original
         msg_request_http_error = error_message_original
         msg_server_error = error_message_original
 
@@ -65,11 +64,11 @@ def handle_error(error):
             msg_request_http_error,
             error.response.status_code,
         )
-    elif isinstance(error, TMAException):
-        return error_response_json(msg_tma_exception, 400)
+    elif isinstance(error, auth.AuthException):
+        return error_response_json(msg_auth_exception, 401)
 
     return error_response_json(msg_server_error, 500)
 
 
 if __name__ == "__main__":  # pragma: no cover
-    app.run()
+    app.run(port=5002)

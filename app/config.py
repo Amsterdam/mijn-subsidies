@@ -4,11 +4,6 @@ import os.path
 from datetime import date, time
 
 from flask.json import JSONEncoder
-from tma_saml.exceptions import (
-    InvalidBSNException,
-    SamlExpiredException,
-    SamlVerificationException,
-)
 
 BASE_PATH = os.path.abspath(os.path.dirname(__file__))
 
@@ -23,7 +18,6 @@ IS_AP = IS_PRODUCTION or IS_ACCEPTANCE
 IS_DEV = os.getenv("FLASK_ENV") == "development" and not IS_AP
 
 # App constants
-TMAException = (SamlVerificationException, InvalidBSNException, SamlExpiredException)
 ENABLE_OPENAPI_VALIDATION = os.getenv("ENABLE_OPENAPI_VALIDATION", "1")
 
 # SISA specific config
@@ -37,6 +31,7 @@ SISA_CERT_FILE = BASE_PATH + "/../cert/Private_G1_chain.pem"
 
 # Set-up logging
 LOG_LEVEL = os.getenv("LOG_LEVEL", "ERROR").upper()
+
 logging.basicConfig(
     format="%(asctime)s,%(msecs)d %(levelname)-8s [%(pathname)s:%(lineno)d in function %(funcName)s] %(message)s",
     datefmt="%Y-%m-%d:%H:%M:%S",
