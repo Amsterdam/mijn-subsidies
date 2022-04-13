@@ -62,6 +62,7 @@ def get_user_profile_from_token(token):
         token,
         OIDC_CLIENT_SECRET,
         audience=audience,
+        algorithms=["HS256"],
         options={"verify_signature": True, "verify_exp": True, "verify_iat": True},
     )
 
