@@ -98,7 +98,7 @@ def get_user_profile_from_token(token):
 @auth.verify_token
 def verify_token(token):
     if not token:
-        raise
+        raise AuthException
     return get_user_profile_from_token(token)
 
 
