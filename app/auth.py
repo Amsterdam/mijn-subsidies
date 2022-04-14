@@ -6,8 +6,6 @@ import jwt
 
 auth = HTTPTokenAuth(scheme="Bearer")
 
-AuthException = jwt.PyJWTError
-
 PROFILE_TYPE_PRIVATE = "private"
 PROFILE_TYPE_COMMERCIAL = "commercial"
 
@@ -34,6 +32,20 @@ TokenAttributeByProfileType = {
 }
 
 login_required = auth.login_required
+
+
+class AuthError(Exception):
+    pass
+
+
+AuthException = [jwt.PyJWTError, AuthError]
+
+
+def is_auth_exception(error):
+    for err in AuthException:
+        if isinstance(error, err):
+            return True
+    return False
 
 
 def get_profile_type(token_data):
@@ -85,6 +97,8 @@ def get_user_profile_from_token(token):
 
 @auth.verify_token
 def verify_token(token):
+    if not token:
+        raise
     return get_user_profile_from_token(token)
 
 

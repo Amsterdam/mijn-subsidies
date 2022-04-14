@@ -64,7 +64,7 @@ def handle_error(error):
             msg_request_http_error,
             error.response.status_code,
         )
-    elif isinstance(error, auth.AuthException):
+    elif auth.is_auth_exception(error):
         return error_response_json(msg_auth_exception, 401)
 
     return error_response_json(msg_server_error, 500)
