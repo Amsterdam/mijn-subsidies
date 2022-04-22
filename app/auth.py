@@ -95,7 +95,7 @@ def get_user_profile_from_token(token):
     profile_id = get_profile_id(token_data)
 
     if IS_ACCEPTANCE:
-        logging.info(f"id {profile_id} type: {profile_type}")
+        logging.error(f"id {profile_id} type: {profile_type}")
 
     return {"id": profile_id, "type": profile_type}
 
