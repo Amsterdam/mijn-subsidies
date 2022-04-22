@@ -82,7 +82,6 @@ def get_verified_token_data(token):
         signing_key.key,
         algorithms=["RS256"],
         audience=audience,
-        options={"verify_iat": IS_AP, "verify_exp": IS_AP},
     )
 
     return token_data
