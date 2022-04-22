@@ -1,10 +1,11 @@
+import logging
 import os
 import unittest
 from unittest.mock import patch
 from flask_httpauth import HTTPTokenAuth
 import jwt
 
-from app.config import IS_AP
+from app.config import IS_ACCEPTANCE, IS_AP
 
 auth = HTTPTokenAuth(scheme="Bearer")
 
@@ -92,6 +93,9 @@ def get_user_profile_from_token(token):
 
     profile_type = get_profile_type(token_data)
     profile_id = get_profile_id(token_data)
+
+    if IS_ACCEPTANCE:
+        logging.info(f"id {profile_id} type: {profile_type}")
 
     return {"id": profile_id, "type": profile_type}
 
