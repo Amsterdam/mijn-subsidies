@@ -100,7 +100,7 @@ def get_user_profile_from_token(token):
 @auth.verify_token
 def verify_token(token):
     if not token:
-        raise AuthError
+        raise AuthError("Token not found")
     return get_user_profile_from_token(token)
 
 
