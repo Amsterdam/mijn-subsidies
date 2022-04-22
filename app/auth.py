@@ -94,8 +94,6 @@ def get_user_profile_from_token(token):
     profile_type = get_profile_type(token_data)
     profile_id = get_profile_id(token_data)
 
-    logging.exception(Exception(f"id {profile_id} type: {profile_type}"))
-
     return {"id": profile_id, "type": profile_type}
 
 
