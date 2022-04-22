@@ -4,6 +4,8 @@ from unittest.mock import patch
 from flask_httpauth import HTTPTokenAuth
 import jwt
 
+from app.config import IS_AP
+
 auth = HTTPTokenAuth(scheme="Bearer")
 
 PROFILE_TYPE_PRIVATE = "private"
@@ -80,7 +82,7 @@ def get_verified_token_data(token):
         signing_key.key,
         algorithms=["RS256"],
         audience=audience,
-        options={"complete": True},
+        options={"verify_iat": IS_AP, "verify_exp": IS_AP},
     )
 
     return token_data
