@@ -1,4 +1,6 @@
+black
 coverage
+cryptography
 flake8
 flask
 flask_httpauth
