@@ -1,11 +1,8 @@
-import logging
 import os
 import unittest
 from unittest.mock import patch
 from flask_httpauth import HTTPTokenAuth
 import jwt
-
-from app.config import IS_ACCEPTANCE, IS_AP
 
 auth = HTTPTokenAuth(scheme="Bearer")
 
