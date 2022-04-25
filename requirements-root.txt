@@ -1,15 +1,10 @@
-# flask and plugins
+coverage
+flake8
 flask
 flask_httpauth
 Flask-Testing
 openapi-core
 pycryptodome
-requests
 pyjwt
-
-# testing tools
-flake8
-coverage
-
-# error reporting
+requests
 sentry-sdk[flask]

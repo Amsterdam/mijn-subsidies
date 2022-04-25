@@ -71,4 +71,4 @@ def handle_error(error):
 
 
 if __name__ == "__main__":  # pragma: no cover
-    app.run(port=5002)
+    app.run()
