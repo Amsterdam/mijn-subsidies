@@ -22,6 +22,8 @@ IS_ACCEPTANCE = SENTRY_ENV == "acceptance"
 IS_AP = IS_PRODUCTION or IS_ACCEPTANCE
 IS_DEV = os.getenv("FLASK_ENV") == "development" and not IS_AP
 
+IS_APP_ENABLED = True
+
 # App constants
 TMAException = (SamlVerificationException, InvalidBSNException, SamlExpiredException)
 ENABLE_OPENAPI_VALIDATION = os.getenv("ENABLE_OPENAPI_VALIDATION", "1")

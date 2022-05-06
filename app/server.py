@@ -7,6 +7,7 @@ from sentry_sdk.integrations.flask import FlaskIntegration
 
 from app import sisa_service
 from app.config import (
+    IS_APP_ENABLED,
     IS_DEV,
     SENTRY_DSN,
     CustomJSONEncoder,
@@ -33,6 +34,9 @@ if SENTRY_DSN:  # pragma: no cover
 @verify_tma_user
 @validate_openapi
 def get_all():
+    if not IS_APP_ENABLED:
+        return error_response_json("Not enabled", 418)
+
     user = get_tma_user()
     content = sisa_service.get_all(user["id"], user["type"])
 
